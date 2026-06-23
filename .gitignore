@@ -1,0 +1,57 @@
+# VSCode (nur projektbezogene Dateien erlauben)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.iml
+*.iws
+*.DotSettings.user
+
+# Build- und Ausgabeverzeichnisse
+bin/
+obj/
+out/
+cmake-build-*/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+Log/
+
+# Paketmanager
+node_modules/
+packages/
+*.nupkg
+*.snupkg
+
+# BenchmarkDotNet
+BenchmarkDotNet.Artifacts/
+
+# Testresultate
+TestResult.xml
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Python (falls mal Skripte)
+__pycache__/
+*.pyc
+
+# Crash Dumps
+mono_crash.*
+
+# Tools
+*.vsix
