@@ -34,16 +34,16 @@ jobs:
           dotnet --info
 
       - name: Restore
-          run: dotnet restore src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj
+        run: dotnet restore src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj
 
-            - name: Build
-              run: dotnet build src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-restore
+      - name: Build
+        run: dotnet build src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-restore
 
-            - name: Pack core package
-              run: dotnet pack src/FachIT360.Lifetime/FachIT360.Lifetime.csproj --configuration Release --no-build --output artifacts/packages
+      - name: Pack core package
+        run: dotnet pack src/FachIT360.Lifetime/FachIT360.Lifetime.csproj --configuration Release --no-build --output artifacts/packages
 
-            - name: Pack Blazor package
-              run: dotnet pack src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-build --output artifacts/packages
+      - name: Pack Blazor package
+        run: dotnet pack src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-build --output artifacts/packages
 
       - name: Upload NuGet packages
         uses: actions/upload-artifact@v4
