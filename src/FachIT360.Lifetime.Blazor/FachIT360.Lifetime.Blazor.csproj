@@ -2,13 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <PackageId>FachIT360.Lifetime.Blazor</PackageId>
+        <Title>FachIT360 Lifetime Blazor</Title>
+        <Description>
+            A small .NET lifetime scope utility for cleanup actions, disposable resources,
+            subscriptions, and lifetime-bound cancellation for Blazor applications.
+        </Description>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FachIT360.Lifetime" Version="0.1.0"/>
+        <ProjectReference Include="..\FachIT360.Lifetime\FachIT360.Lifetime.csproj" />
         <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.28"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
     </ItemGroup>
 
 </Project>

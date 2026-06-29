@@ -2,22 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
         <PackageId>FachIT360.Lifetime</PackageId>
         <Title>FachIT360 Lifetime</Title>
         <Description>
             A small .NET lifetime scope utility for cleanup actions, disposable resources,
             subscriptions, and lifetime-bound cancellation.
         </Description>
-        <Authors>FachIT 360 - Marcus Reinhart</Authors>
-        <Company>FachIT 360</Company>
-        <PackageVersion>0.1.0</PackageVersion>
-        <RepositoryUrl>https://github.com/FachIT-360/FachIT360.Lifetime</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/FachIT-360/FachIT360.Lifetime</PackageProjectUrl>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     
     <ItemGroup>

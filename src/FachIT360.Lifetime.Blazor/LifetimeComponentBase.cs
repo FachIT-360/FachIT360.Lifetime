@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace FachIT360.Lifetime.Blazor
 {
+    /// <summary>
+    /// Base class for components that require a lifetime scope.
+    /// </summary>
     public abstract class LifetimeComponentBase : ComponentBase, IDisposable
     {
         private bool _disposed;

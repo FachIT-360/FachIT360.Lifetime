@@ -1,0 +1,21 @@
+<Project>
+    <PropertyGroup>
+        <Authors>FachIT 360 - Marcus Reinhart</Authors>
+        <Company>FachIT 360</Company>
+        <RepositoryUrl>https://github.com/FachIT-360/FachIT360.Lifetime</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/FachIT-360/FachIT360.Lifetime</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        
+        <PackageVersion>0.1.0</PackageVersion>
+        
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        
+        <RepositoryType>git</RepositoryType>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+</Project>
