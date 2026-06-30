@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   build:
@@ -49,8 +50,23 @@ jobs:
       - name: Pack Blazor package
         run: dotnet pack src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-build --output artifacts/packages
 
-      - name: Upload NuGet packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: nuget-packages
-          path: artifacts/packages/*
+      - name: Configure GitHub NuGet source
+        run: dotnet nuget add source \
+          --username ${{ github.actor }} \
+          --password ${GITHUB_TOKEN} \
+          --store-password-in-clear-text \
+          --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Push packages to GitHub NuGet Feed
+        run: |
+          for package in artifacts/packages/*.nupkg; do
+            echo "Pushing package: $package"
+            dotnet nuget push "$package" \
+              --source github \
+              --api-key ${GITHUB_TOKEN} \
+              --skip-duplicate
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

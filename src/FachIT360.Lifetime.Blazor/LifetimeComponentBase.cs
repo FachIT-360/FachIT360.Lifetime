@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.AspNetCore.Components;
 
 namespace FachIT360.Lifetime.Blazor
@@ -11,6 +13,7 @@ namespace FachIT360.Lifetime.Blazor
     /// <summary>
     /// Base class for components that require a lifetime scope.
     /// </summary>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public abstract class LifetimeComponentBase : ComponentBase, IDisposable
     {
         private bool _disposed;
@@ -21,9 +24,7 @@ namespace FachIT360.Lifetime.Blazor
         /// </summary>
         protected LifetimeScope Lifetime { get; } = new();
         
-        /// <summary>
-        /// Gets a cancellation token that will be canceled when this component is disposed of.
-        /// </summary>
+        /// <inheritdoc cref="LifetimeScope.Token"/>
         protected CancellationToken CancellationToken => Lifetime.Token;
         
         /// <summary>
