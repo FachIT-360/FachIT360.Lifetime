@@ -51,11 +51,7 @@ jobs:
         run: dotnet pack src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-build --output artifacts/packages
 
       - name: Configure GitHub NuGet source
-        run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
-          --name github \
-          --username "github" \
-          --password ${GITHUB_TOKEN} \
-          --store-password-in-clear-text
+        run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --name github --username "github" --password ${GITHUB_TOKEN} --store-password-in-clear-text
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
