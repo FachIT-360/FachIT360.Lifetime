@@ -55,7 +55,7 @@ jobs:
           --name github \
           --username "github" \
           --password ${GITHUB_TOKEN} \
-          --store-password-in-clear-text \
+          --store-password-in-clear-text
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
