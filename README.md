@@ -1,8 +1,10 @@
 # FachIT360.Lifetime
 
-A small .NET utility for binding cleanup actions, disposable resources, event subscriptions, and asynchronous operations to the lifetime of an owning object.
+A small .NET utility for binding cleanup actions, disposable resources, event subscriptions, and asynchronous operations
+to the lifetime of an owning object.
 
-`FachIT360.Lifetime` provides a simple `LifetimeScope` that helps keep cleanup logic close to the code that creates or registers resources.
+`FachIT360.Lifetime` provides a simple `LifetimeScope` that helps keep cleanup logic close to the code that creates or
+registers resources.
 
 ## Features
 
@@ -14,6 +16,7 @@ A small .NET utility for binding cleanup actions, disposable resources, event su
 * No dependency on Blazor, ASP.NET Core, dependency injection, or logging
 
 ## Installation
+
 ```bash
 dotnet add package FachIT360.Lifetime
 ```
@@ -89,7 +92,8 @@ await dbRepository.LoadAsync(_lifetime.Token);
 
 Use this token for asynchronous operations that should stop when the owning object is disposed.
 
-The token represents the lifetime of the owning object. It is not intended to control individual operations such as canceling a single search or uplo ad. For operation-specific cancellation, use a separate `CancellationTokenSource`.
+The token represents the lifetime of the owning object. It is not intended to control individual operations such as
+canceling a single search or uplo ad. For operation-specific cancellation, use a separate `CancellationTokenSource`.
 
 ## Disposal behavior
 
@@ -115,9 +119,11 @@ The owning object should dispose the scope when its own lifetime ends.
 # FachIT360.Lifetime.Blazor
 
 FachIT360.Lifetime.Blazor integrates the LifetimeScope utility into the lifecycle of Blazor components and layouts.
-It provides deterministic cleanup, cancellation mechanisms tied to the lifetime, and optional support for typed logging for Blazor Server and WebAssembly.
+It provides deterministic cleanup, cancellation mechanisms tied to the lifetime, and optional support for typed logging
+for Blazor Server and WebAssembly.
 
-This package extends the core library FachIT360.Lifetime, adding abstractions specifically tailored to Blazor applications.
+This package extends the core library FachIT360.Lifetime, adding abstractions specifically tailored to Blazor
+applications.
 
 ## Installation
 
@@ -125,7 +131,8 @@ This package extends the core library FachIT360.Lifetime, adding abstractions sp
 dotnet add package FachIT360.Lifetime.Blazor
 ```
 
-The FachIT360.Lifetime.Blazor package already references FachIT360.Lifetime internally and does not need to be specified explicitly.
+The FachIT360.Lifetime.Blazor package already references FachIT360.Lifetime internally and does not need to be specified
+explicitly.
 
 ### FachIT360.Lifetime.Blazor — API Overview
 

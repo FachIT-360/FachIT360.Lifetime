@@ -1,5 +1,5 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LifetimeComponentBase.cs" company="FachIT 360 - Marcus Reinhart">
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LifetimeLayoutBase.cs" company="FachIT 360 - Marcus Reinhart">
 // (C) 2026 by FachIT 360 - Marcus Reinhart
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Components;
 namespace FachIT360.Lifetime.Blazor
 {
     /// <summary>
-    ///     Base class for components that require a lifetime scope.
+    /// Base class for components that require a lifetime scope.
     /// </summary>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public abstract class LifetimeComponentBase : ComponentBase, IDisposable
+    public class LifetimeLayoutBase : LayoutComponentBase, IDisposable
     {
     #region Constants - Static fields - Fields
 

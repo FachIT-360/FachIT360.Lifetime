@@ -84,7 +84,7 @@ namespace FachIT360.Lifetime
             }
 
             Cancel();
-            
+
             _disposed = true;
 
             foreach (var cleanup in _cleanupActions.AsEnumerable().Reverse())
@@ -110,23 +110,23 @@ namespace FachIT360.Lifetime
         /// <summary>
         ///     Registers a cleanup action that is executed when this lifetime scope is disposed.
         /// </summary>
-        /// <param name="cleanup">
+        /// <param name = "cleanup">
         ///     The cleanup action to execute during disposal.
         /// </param>
         /// <remarks>
         ///     Use this method for custom cleanup logic that is not represented by
-        ///     <see cref="IDisposable"/> or an explicit subscription pair.
+        ///     <see cref = "IDisposable" /> or an explicit subscription pair.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">
-        ///     Thrown when <paramref name="cleanup"/> is <see langword="null"/>.
+        /// <exception cref = "ArgumentNullException">
+        ///     Thrown when <paramref name = "cleanup" /> is <see langword = "null" />.
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
+        /// <exception cref = "ObjectDisposedException">
         ///     Thrown when this lifetime scope has already been disposed.
         /// </exception>
         public void AddCleanup(Action cleanup)
         {
             ArgumentNullException.ThrowIfNull(cleanup);
-            
+
             ThrowIfDisposed();
 
             _cleanupActions.Add(cleanup);
@@ -135,23 +135,23 @@ namespace FachIT360.Lifetime
         /// <summary>
         ///     Registers a disposable resource to be disposed when this lifetime scope is disposed.
         /// </summary>
-        /// <param name="disposable">
+        /// <param name = "disposable">
         ///     The disposable resource to dispose during lifetime disposal.
         /// </param>
         /// <remarks>
-        ///     This method is equivalent to registering <see cref="IDisposable.Dispose"/>
+        ///     This method is equivalent to registering <see cref = "IDisposable.Dispose" />
         ///     as a cleanup action.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">
-        ///     Thrown when <paramref name="disposable"/> is <see langword="null"/>.
+        /// <exception cref = "ArgumentNullException">
+        ///     Thrown when <paramref name = "disposable" /> is <see langword = "null" />.
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
+        /// <exception cref = "ObjectDisposedException">
         ///     Thrown when this lifetime scope has already been disposed.
         /// </exception>
         public void AddDisposable(IDisposable disposable)
         {
             ArgumentNullException.ThrowIfNull(disposable);
-            
+
             AddCleanup(disposable.Dispose);
         }
 
@@ -159,13 +159,13 @@ namespace FachIT360.Lifetime
         ///     Executes a subscription or setup action immediately and registers the corresponding
         ///     unsubscription or cleanup action for disposal.
         /// </summary>
-        /// <param name="register">
+        /// <param name = "register">
         ///     The action that subscribes, registers, attaches, starts, or otherwise enables
         ///     something. This action is executed immediately.
         /// </param>
-        /// <param name="unregister">
+        /// <param name = "unregister">
         ///     The action that unsubscribes, unregisters, detaches, stops, or otherwise cleans up
-        ///     what <paramref name="register"/> enabled. This action is executed when this scope
+        ///     what <paramref name = "register" /> enabled. This action is executed when this scope
         ///     is disposed.
         /// </param>
         /// <remarks>
@@ -183,18 +183,18 @@ namespace FachIT360.Lifetime
         ///     </code>
         ///     The cleanup action is only registered if the setup action completes successfully.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">
-        ///     Thrown when <paramref name="register"/> or <paramref name="unregister"/> is
-        ///     <see langword="null"/>.
+        /// <exception cref = "ArgumentNullException">
+        ///     Thrown when <paramref name = "register" /> or <paramref name = "unregister" /> is
+        ///     <see langword = "null" />.
         /// </exception>
-        /// <exception cref="ObjectDisposedException">
+        /// <exception cref = "ObjectDisposedException">
         ///     Thrown when this lifetime scope has already been disposed.
         /// </exception>
         public void Subscribe(Action register, Action unregister)
         {
             ArgumentNullException.ThrowIfNull(register);
             ArgumentNullException.ThrowIfNull(unregister);
-            
+
             ThrowIfDisposed();
 
             register();
@@ -202,7 +202,7 @@ namespace FachIT360.Lifetime
         }
 
         /// <summary>
-        /// Cancel pending operations associated with this lifetime scope.
+        ///     Cancel pending operations associated with this lifetime scope.
         /// </summary>
         private void Cancel()
         {

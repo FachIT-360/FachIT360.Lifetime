@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LifetimeComponentBase.TComponent.cs" company="FachIT 360 - Marcus Reinhart">
+// <copyright file="LifetimeLayoutBase.TComponent.cs" company="FachIT 360 - Marcus Reinhart">
 // (C) 2026 by FachIT 360 - Marcus Reinhart
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ namespace FachIT360.Lifetime.Blazor
     /// 1. The type of the component that inherits from this base class. This is used for logging purposes to provide context about the specific component type.
     /// </typeparam>
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-    public abstract class LifetimeComponentBase<TComponent> : LifetimeComponentBase
+    public class LifetimeLayoutBase<TComponent> : LifetimeLayoutBase
     {
     #region Properties
 
