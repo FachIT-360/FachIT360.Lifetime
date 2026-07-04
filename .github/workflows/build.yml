@@ -80,6 +80,6 @@ jobs:
           for package in artifacts/packages/*.nupkg; do
             echo "Publishing to NuGet.org: $package"
             dotnet nuget push "$package" \
-              --source fit360-nuget \
+              --source nuget.org \
               --skip-duplicate
           done
