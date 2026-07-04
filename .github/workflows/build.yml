@@ -12,6 +12,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   build:
@@ -78,5 +79,6 @@ jobs:
             echo "Publishing to NuGet.org: $package"
             dotnet nuget push "$package" \
               --source nuget.org \
+              --api-key oy2eb367njg2f5st6vi77se46as6bc6w6g999999999999 \
               --skip-duplicate
           done
