@@ -69,6 +69,8 @@ jobs:
               --api-key ${GITHUB_TOKEN} \
               --skip-duplicate
           done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Push packages to NuGet.org
         run: |
@@ -78,5 +80,3 @@ jobs:
               --source "https://api.nuget.org/v3/index.json" \
               --skip-duplicate
           done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
