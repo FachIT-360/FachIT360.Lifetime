@@ -72,16 +72,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Debug NuGet sources
-        run: dotnet nuget list source --format detailed
-
-      - name: Inspect nupkg metadata
-        run: |
-          for package in artifacts/packages/*.nupkg; do
-            echo "---- $package ----"
-            unzip -p "$package" package.nuspec
-          done
-
       - name: Push packages to NuGet.org
         run: |
           for package in artifacts/packages/*.nupkg; do
