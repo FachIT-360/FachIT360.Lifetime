@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Components;
 namespace FachIT360.Lifetime.Blazor
 {
     /// <summary>
-    /// Base class for components that require a lifetime scope.
+    /// Base class for components that require a <see cref="LifetimeScope"/>.
     /// </summary>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LifetimeLayoutBase : LayoutComponentBase, IDisposable

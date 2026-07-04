@@ -87,11 +87,11 @@ namespace FachIT360.Lifetime
 
             _disposed = true;
 
-            foreach (var cleanup in _cleanupActions.AsEnumerable().Reverse())
+            foreach (var cleanupAction in _cleanupActions.AsEnumerable().Reverse())
             {
                 try
                 {
-                    cleanup();
+                    cleanupAction();
                 }
                 catch (Exception)
                 {
