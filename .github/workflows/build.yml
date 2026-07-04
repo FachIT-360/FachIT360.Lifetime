@@ -74,13 +74,13 @@ jobs:
 
       - name: Push packages to NuGet.org
         run: |
-          dotnet nuget remove source nuget.org || true
+          dotnet nuget remove source nuget || true
           dotnet nuget add source "https://api.nuget.org/v3/index.json" \
-            --name nuget.org
+            --name nuget
           
           for package in artifacts/packages/*.nupkg; do
             echo "Publishing to NuGet.org: $package"
             dotnet nuget push "$package" \
-              --source nuget.org \
+              --source nuget \
               --skip-duplicate
           done
