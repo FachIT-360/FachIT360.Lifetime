@@ -72,10 +72,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure NuGet.org V3 source
-        run: |
-          dotnet nuget add source "https://api.nuget.org/v3/index.json" \
-            --name fit360-nuget
+      - name: Debug NuGet sources
+        run: dotnet nuget list source --format detailed
 
       - name: Push packages to NuGet.org
         run: |
