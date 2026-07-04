@@ -74,15 +74,15 @@ jobs:
 
       - name: Configure NuGet.org V3 source
         run: |
-          dotnet nuget remove source nuget || true
+          dotnet nuget remove source fit360-nuget || true
           dotnet nuget add source "https://api.nuget.org/v3/index.json" \
-            --name nuget
+            --name fit360-nuget
 
       - name: Push packages to NuGet.org
         run: |
           for package in artifacts/packages/*.nupkg; do
             echo "Publishing to NuGet.org: $package"
             dotnet nuget push "$package" \
-              --source nuget \
+              --source fit360-nuget \
               --skip-duplicate
           done
