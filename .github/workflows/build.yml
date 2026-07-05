@@ -77,7 +77,7 @@ jobs:
         id: login
         uses: NuGet/login@v1
         with:
-          user: FachIT-360
+          user: mreinhart
           
       - name: Push packages to NuGet.org
         run: |
