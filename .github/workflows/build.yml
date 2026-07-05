@@ -73,12 +73,26 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: NuGet Login (OIDC Token-Exchange)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: FachIT-360
+          
       - name: Push packages to NuGet.org
         run: |
           for package in artifacts/packages/*.nupkg; do
-            echo "Publishing to NuGet.org: $package"
+            echo "Publishing Packages to NuGet.org: $package"
             dotnet nuget push "$package" \
-              --source nuget.org \
-              --api-key oy2eb367njg2f5st6vi77se46as6bc6w6g999999999999 \
+              --source https://api.nuget.org/v3/index.json \
+              --api-key "${{ steps.login.outputs.NUGET_API_KEY}}" \
+              --skip-duplicate
+          done
+          
+          for symbol in artifacts/packages/*.snupkg; do
+            echo "Publishing Symbols to NuGet.org: $package"
+            dotnet nuget push "$symbol" \
+              --source https://api.nuget.org/v3/index.json \
+              --api-key "${{ steps.login.outputs.NUGET_API_KEY}}" \
               --skip-duplicate
           done
