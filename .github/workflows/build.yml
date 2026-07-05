@@ -90,7 +90,7 @@ jobs:
           done
           
           for symbol in artifacts/packages/*.snupkg; do
-            echo "Publishing Symbols to NuGet.org: $package"
+            echo "Publishing Symbols to NuGet.org: $symbol"
             dotnet nuget push "$symbol" \
               --source https://api.nuget.org/v3/index.json \
               --api-key "${{ steps.login.outputs.NUGET_API_KEY}}" \
