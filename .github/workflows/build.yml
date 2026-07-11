@@ -39,12 +39,6 @@ jobs:
           echo "Runner architecture: $RUNNER_ARCH"
           dotnet --info
 
-#      - name: Restore
-#        run: dotnet restore src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj
-#
-#      - name: Build
-#        run: dotnet build src/FachIT360.Lifetime.Blazor/FachIT360.Lifetime.Blazor.csproj --configuration Release --no-restore
-
       - name: Pack core package
         run: |
           dotnet pack src/FachIT360.Lifetime/FachIT360.Lifetime.csproj \

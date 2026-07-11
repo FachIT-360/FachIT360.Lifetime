@@ -18,7 +18,7 @@ namespace FachIT360.Lifetime.Blazor
     /// 1. The type of the component that inherits from this base class. This is used for logging purposes to provide context about the specific component type.
     /// </typeparam>
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-    public class LifetimeLayoutBase<TComponent> : LifetimeLayoutBase
+    public abstract class LifetimeLayoutBase<TComponent> : LifetimeLayoutBase
     {
     #region Properties
 

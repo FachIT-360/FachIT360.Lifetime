@@ -14,7 +14,7 @@ namespace FachIT360.Lifetime.Blazor
     /// Base class for components that require a <see cref="LifetimeScope"/>.
     /// </summary>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public class LifetimeLayoutBase : LayoutComponentBase, IDisposable
+    public abstract class LifetimeLayoutBase : LayoutComponentBase, IDisposable
     {
     #region Constants - Static fields - Fields
 
@@ -66,6 +66,20 @@ namespace FachIT360.Lifetime.Blazor
                 Lifetime.Dispose();
                 OnDisposeManaged();
             }
+        }
+
+        protected abstract Task UpdatePageTitleAsync(string title);
+
+        /// <summary>
+        /// Method invoked when the component is ready to start, having received its
+        /// initial parameters from its parent in the render tree.
+        /// Override this method if you will perform an asynchronous operation and
+        /// want the component to refresh when that operation is completed.
+        /// </summary>
+        /// <returns>A <see cref="T:System.Threading.Tasks.Task" /> representing any asynchronous operation.</returns>
+        protected override async Task OnInitializedAsync()
+        {
+            await UpdatePageTitleAsync(string.Empty);
         }
 
         /// <summary>
