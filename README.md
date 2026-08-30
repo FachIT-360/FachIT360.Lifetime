@@ -21,6 +21,20 @@ registers resources.
 dotnet add package FachIT360.Lifetime
 ```
 
+## Intended use
+
+FachIT360.Lifetime is intended for:
+
+* Services
+* Workers
+* View models, provided no dependencies arise (e.g., WPF, WinForms, MAUI, etc.)
+* Background tasks
+* Coordinator objects
+* Domain objects
+* Any object with a deterministic lifetime
+
+The owning object should dispose the scope when its own lifetime ends.
+
 ## Basic usage
 
 ```csharp
@@ -32,7 +46,7 @@ public sealed class MyService : IDisposable
 
     public MyService(SomeEventSource source)
     {
-        // Subscribe register and unregister actions                                                                                                                                   1
+        // Subscribe register and unregister actions
         _lifetime.Subscribe(
         () => source.Changed += OnChanged,
         () => source.Changed -= OnChanged);
@@ -49,8 +63,9 @@ public sealed class MyService : IDisposable
     }
 }
 ```
+## Features & API Guide
 
-## Add Custom Cleanup actions
+### Custom Cleanup Actions
 
 Use `AddCleanup` for custom cleanup logic that should run when the scope is disposed.
 
@@ -58,7 +73,7 @@ Use `AddCleanup` for custom cleanup logic that should run when the scope is disp
 _lifetime.AddCleanup(() => Console.WriteLine("Cleaning up!"));
 ```
 
-## Add Disposable resources
+### Disposable Resources
 
 Use `AddDisposable` for resources that implement IDisposable.
 
@@ -67,7 +82,7 @@ var timer = new Timer(_ => DoWork(), null, TimeSpan.Zero, TimeSpan.FromSeconds(1
 _lifetime.AddDisposable(timer);
 ```
 
-## Add Event subscriptions
+### Event Subscriptions
 
 Use `Subscribe` to register an action immediately and provide the matching cleanup action.
 
@@ -82,7 +97,7 @@ The second action is executed when the lifetime scope is disposed.
 
 This pattern is useful for event subscriptions because it keeps subscription and unsubscription next to each other.
 
-## Cancellation token
+### Cancellation Token
 
 `LifetimeScope.Token` is canceled when the scope is disposed.
 
@@ -93,9 +108,9 @@ await dbRepository.LoadAsync(_lifetime.Token);
 Use this token for asynchronous operations that should stop when the owning object is disposed.
 
 The token represents the lifetime of the owning object. It is not intended to control individual operations such as
-canceling a single search or uplo ad. For operation-specific cancellation, use a separate `CancellationTokenSource`.
+canceling a single search or upload. For operation-specific cancellation, use a separate `CancellationTokenSource`.
 
-## Disposal behavior
+### Disposal behavior
 
 When `LifetimeScope.Dispose()` is called:
 
@@ -103,18 +118,6 @@ When `LifetimeScope.Dispose()` is called:
 2. Registered cleanup actions are executed in reverse registration order.
 3. Cleanup exceptions are ignored.
 4. The internal CancellationTokenSource is disposed.
-
-## Intended use
-
-* Services
-* Workers
-* View models, provided no dependencies arise (e.g., WPF, WinForms, MAUI, etc.)
-* Background tasks
-* Coordinator objects
-* Domain objects
-* Any object with a deterministic lifetime
-
-The owning object should dispose the scope when its own lifetime ends.
 
 # FachIT360.Lifetime.Blazor
 
@@ -134,18 +137,96 @@ dotnet add package FachIT360.Lifetime.Blazor
 The FachIT360.Lifetime.Blazor package already references FachIT360.Lifetime internally and does not need to be specified
 explicitly.
 
-### FachIT360.Lifetime.Blazor — API Overview
+## Why use `LifetimeComponentBase` in Blazor?
 
-> **Component Inheritance Hierarchy**
+In Blazor, subscribing to events or background tasks often requires manual `IDisposable` implementations, custom CancellationTokens, and explicit unhooking logic to avoid memory leaks.
+
+`LifetimeComponentBase` handles all of this automatically.
+
+### Before (Standard Blazor):
+```csharp
+@implements IDisposable
+@inject IDataService DataService
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        DataService.OnUpdated += OnDataUpdated;
+        
+        var data = await DataService.FetchAsync(CancellationToken.None); 
+    }
+
+    private void OnDataUpdated(object? sender, EventArgs e)
+    {
+        // Some logic after data is updated
+    }
+
+    public void Dispose()
+    {
+        DataService.OnUpdated -= OnDataUpdated;
+        DataService.Dispose();
+    }
+}
+```
+
+### After (With FachIT360.Lifetime.Blazor):
+
+```csharp
+@inherits LifetimeComponentBase<Counter>
+@inject IDataService DataService
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        // Add the DataService to Lifetime scope
+        Lifetime.AddDisposable(DataService);
+
+        // Add event registration and unregistration at once
+        Lifetime.Subscribe(
+            () => DataService.OnUpdated += OnDataUpdated,
+            () => DataService.OnUpdated -= OnDataUpdated);
+
+        // Add provided CancellationToken for your used services
+        var data = await DataService.FetchAsync(CancellationToken);
+    }
+
+    private void OnDataUpdated(object? sender, EventArgs e)
+    {
+        // Some logic after data is updated
+    }
+
+    // Optional: Hook for custom teardown logic executed during disposal
+    protected override void OnDisposeManaged()
+    {
+        Logger.LogInformation("Component is unmounting. Performing custom cleanup...");
+    }
+}
+```
+
+## Intended Use
+
+FachIT360.Lifetime.Blazor is intended for:
+
+* Blazor components with event subscriptions
+* Components using JS interop
+* Layouts with shared UI state
+* Components with long-running asynchronous operations
+* Components requiring deterministic cleanup logic
+
+## FachIT360.Lifetime.Blazor — API Overview
+
+### Component Inheritance Hierarchy
+
 > ```
-> ComponentBaae
+> ComponentBase
 >     ↓
 > LifetimeComponentBase
 >     ↓
 > LifetimeComponentBase<TComponent>
 > ```
 
-> **Layout Inheritance Hierarchy**
+### Layout Inheritance Hierarchy
+
 > ```
 > LayoutComponentBase
 >     ↓
@@ -154,7 +235,7 @@ explicitly.
 > LifetimeLayoutBase<TComponent>
 > ```
 
-### Members
+### Base Members
 
 ```csharp
 protected LifetimeScope Lifetime { get; }
@@ -162,7 +243,9 @@ protected CancellationToken CancellationToken { get; }
 protected virtual void OnDisposeManaged();
 ```
 
-### Usage Examples
+## Usage Examples
+
+### Component Example
 
 ```csharp
 public sealed partial class Dashboard : LifetimeComponentBase<Dashboard>
@@ -180,19 +263,9 @@ public sealed partial class Dashboard : LifetimeComponentBase<Dashboard>
 }
 ```
 
-## Intended Use
+### Layout Example
 
-FachIT360.Lifetime.Blazor is intended
-
-* Blazor components with event subscriptions
-* Components using JS interop
-* Layouts with shared UI state
-* Components with long-running asynchronous operations
-* Components requiring deterministic cleanup logic
-
-## Usage in a layout
-
-```csharp
+```cshtml
 @inherits LifetimeLayoutBase<MainLayout>
 
 <div class="page">
