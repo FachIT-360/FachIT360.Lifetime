@@ -1,6 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+﻿// // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LifetimeScope.cs" company="FachIT 360 - Marcus Reinhart">
-// (C) 2026 by FachIT 360 - Marcus Reinhart
+//   Copyright (c) 2026 FachIT 360 - Marcus Reinhart.
+//   Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 

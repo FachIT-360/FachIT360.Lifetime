@@ -1,6 +1,7 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LifetimeLayoutBase.cs" company="FachIT 360 - Marcus Reinhart">
-// (C) 2026 by FachIT 360 - Marcus Reinhart
+// // --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LifetimeScope.cs" company="FachIT 360 - Marcus Reinhart">
+//   Copyright (c) 2026 FachIT 360 - Marcus Reinhart.
+//   Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Components;
 namespace FachIT360.Lifetime.Blazor
 {
     /// <summary>
-    /// Base class for components that require a <see cref="LifetimeScope"/>.
+    ///     Base class for components that require a <see cref = "LifetimeScope" />.
     /// </summary>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public abstract class LifetimeLayoutBase : LayoutComponentBase, IDisposable

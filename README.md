@@ -63,6 +63,7 @@ public sealed class MyService : IDisposable
     }
 }
 ```
+
 ## Features & API Guide
 
 ### Custom Cleanup Actions
@@ -92,8 +93,7 @@ _lifetime.Subscribe(
 () => service.Changed -= OnChanged);
 ```
 
-The first action is executed immediately.
-The second action is executed when the lifetime scope is disposed.
+The first action is executed immediately. The second action is executed when the lifetime scope is disposed.
 
 This pattern is useful for event subscriptions because it keeps subscription and unsubscription next to each other.
 
@@ -121,9 +121,9 @@ When `LifetimeScope.Dispose()` is called:
 
 # FachIT360.Lifetime.Blazor
 
-FachIT360.Lifetime.Blazor integrates the LifetimeScope utility into the lifecycle of Blazor components and layouts.
-It provides deterministic cleanup, cancellation mechanisms tied to the lifetime, and optional support for typed logging
-for Blazor Server and WebAssembly.
+FachIT360.Lifetime.Blazor integrates the LifetimeScope utility into the lifecycle of Blazor components and layouts. It
+provides deterministic cleanup, cancellation mechanisms tied to the lifetime, and optional support for typed logging for
+Blazor Server and WebAssembly.
 
 This package extends the core library FachIT360.Lifetime, adding abstractions specifically tailored to Blazor
 applications.
@@ -139,11 +139,13 @@ explicitly.
 
 ## Why use `LifetimeComponentBase` in Blazor?
 
-In Blazor, subscribing to events or background tasks often requires manual `IDisposable` implementations, custom CancellationTokens, and explicit unhooking logic to avoid memory leaks.
+In Blazor, subscribing to events or background tasks often requires manual `IDisposable` implementations, custom
+CancellationTokens, and explicit unhooking logic to avoid memory leaks.
 
 `LifetimeComponentBase` handles all of this automatically.
 
 ### Before (Standard Blazor):
+
 ```csharp
 @implements IDisposable
 @inject IDataService DataService
