@@ -49,9 +49,11 @@ namespace FachIT360.Lifetime
         {
             get
             {
+                // A disposed scope reports an already canceled token so that
+                // late callers observe "owner is gone" instead of "never canceled"
                 if (_disposed)
                 {
-                    return CancellationToken.None;
+                    return new CancellationToken(canceled: true);
                 }
 
                 try
@@ -60,7 +62,7 @@ namespace FachIT360.Lifetime
                 }
                 catch (ObjectDisposedException)
                 {
-                    return CancellationToken.None;
+                    return new CancellationToken(canceled: true);
                 }
             }
         }
